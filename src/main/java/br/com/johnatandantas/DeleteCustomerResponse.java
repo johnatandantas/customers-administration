@@ -10,6 +10,7 @@ package br.com.johnatandantas;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="statusResponse" type="{http://johnatandantas.com.br}StatusResponse"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,27 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "id"
+    "statusResponse"
 })
-@XmlRootElement(name = "GetCustomerDetailRequest")
-public class GetCustomerDetailRequest {
+@XmlRootElement(name = "DeleteCustomerResponse")
+public class DeleteCustomerResponse {
 
-    protected int id;
+    @XmlElement(required = true)
+    protected StatusResponse statusResponse;
 
     /**
-     * Obtém o valor da propriedade id.
+     * Obtém o valor da propriedade statusResponse.
      * 
+     * @return
+     *     possible object is
+     *     {@link StatusResponse }
+     *     
      */
-    public int getId() {
-        return id;
+    public StatusResponse getStatusResponse() {
+        return statusResponse;
     }
 
     /**
-     * Define o valor da propriedade id.
+     * Define o valor da propriedade statusResponse.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link StatusResponse }
+     *     
      */
-    public void setId(int value) {
-        this.id = value;
+    public void setStatusResponse(StatusResponse value) {
+        this.statusResponse = value;
     }
 
 }

@@ -2,7 +2,7 @@
 // Este arquivo foi gerado pela Arquitetura JavaTM para Implementação de Referência (JAXB) de Bind XML, v2.2.7 
 // Consulte <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas as modificações neste arquivo serão perdidas após a recompilação do esquema de origem. 
-// Gerado em: 2020.06.20 às 10:13:09 AM GFT 
+// Gerado em: 2020.06.20 às 11:57:47 AM GFT 
 //
 
 
@@ -37,6 +37,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetAllCustomerDetailRequest }
+     * 
+     */
+    public GetAllCustomerDetailRequest createGetAllCustomerDetailRequest() {
+        return new GetAllCustomerDetailRequest();
+    }
+
+    /**
      * Create an instance of {@link GetCustomerDetailResponse }
      * 
      */
@@ -53,19 +61,35 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetAllCustomerDetailResponse }
+     * 
+     */
+    public GetAllCustomerDetailResponse createGetAllCustomerDetailResponse() {
+        return new GetAllCustomerDetailResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteCustomerRequest }
+     * 
+     */
+    public DeleteCustomerRequest createDeleteCustomerRequest() {
+        return new DeleteCustomerRequest();
+    }
+
+    /**
+     * Create an instance of {@link DeleteCustomerResponse }
+     * 
+     */
+    public DeleteCustomerResponse createDeleteCustomerResponse() {
+        return new DeleteCustomerResponse();
+    }
+
+    /**
      * Create an instance of {@link GetCustomerDetailRequest }
      * 
      */
     public GetCustomerDetailRequest createGetCustomerDetailRequest() {
         return new GetCustomerDetailRequest();
-    }
-
-    /**
-     * Create an instance of {@link GetAllCustomerRequest }
-     * 
-     */
-    public GetAllCustomerRequest createGetAllCustomerRequest() {
-        return new GetAllCustomerRequest();
     }
 
 }
