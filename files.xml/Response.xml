@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GetCustomerDetailResponse
+	xmlns="http://johnatandantas.com.br"
+	xsi:schemaLocation="http://johnatandantas.com.br customer-information.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<CustomerDetail>
+		<id>123</id>
+		<name>Johnatan Dantas</name>
+		<phone>9999999999</phone>
+		<email>dantas.johnatan@email.com</email>
+	</CustomerDetail>
+</GetCustomerDetailResponse>
