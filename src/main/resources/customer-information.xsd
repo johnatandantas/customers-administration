@@ -2,6 +2,23 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://johnatandantas.com.br"
 	xmlns:tns="http://johnatandantas.com.br" elementFormDefault="qualified">
+	
+	<xs:element name="InsertCustomerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CustomerDetail"
+					type="tns:CustomerDetail" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="InsertCustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="statusResponse" type="tns:StatusResponse" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 
 	<xs:element name="GetCustomerDetailRequest">
 		<xs:complexType>

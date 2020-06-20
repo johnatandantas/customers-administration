@@ -15,7 +15,10 @@ import br.com.johnatandantas.GetAllCustomerDetailRequest;
 import br.com.johnatandantas.GetAllCustomerDetailResponse;
 import br.com.johnatandantas.GetCustomerDetailRequest;
 import br.com.johnatandantas.GetCustomerDetailResponse;
+import br.com.johnatandantas.InsertCustomerRequest;
+import br.com.johnatandantas.InsertCustomerResponse;
 import br.com.johnatandantas.StatusResponse;
+import br.com.johnworks.soap.webservices.customersadministration.endpoint.exception.CustomerNotFoundException;
 import br.com.johnworks.soap.webservices.customersadministration.entity.Customer;
 import br.com.johnworks.soap.webservices.customersadministration.entity.enumerations.Status;
 import br.com.johnworks.soap.webservices.customersadministration.service.CustomerDetailService;
@@ -36,7 +39,7 @@ public class CustomerDetailEndpoint {
     public GetCustomerDetailResponse processGetCustomerDetailResponse(@RequestPayload GetCustomerDetailRequest request) throws Exception {
     	Customer customer = new Customer();
     	if(customer == null) {
-    		throw new Exception("Invalid Customer id " + customer.getId());
+    		throw new CustomerNotFoundException("Invalid Customer id " + customer.getId());
     	}
         return convertToGetCustomerDetailResponse(customer);
     }
@@ -50,8 +53,18 @@ public class CustomerDetailEndpoint {
     
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "DeleteCustomerRequest")
     @ResponsePayload
-    public DeleteCustomerResponse processDeleteCustomerResponse(@RequestPayload DeleteCustomerRequest request) throws Exception {
+    public DeleteCustomerResponse processDeleteCustomerRequest(@RequestPayload DeleteCustomerRequest request) throws Exception {
     	DeleteCustomerResponse response = new DeleteCustomerResponse();
+    	StatusResponse statusResponse = convertToStatusResponse(Status.SUCESS);
+    	response.setStatusResponse(statusResponse);
+        return response;
+    }
+	
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "InsertCustomerRequest")
+    @ResponsePayload
+    public InsertCustomerResponse processInsertCustomerRequest(@RequestPayload InsertCustomerRequest request) throws Exception {
+		InsertCustomerResponse response = new InsertCustomerResponse();
+		convertCustomer(request.getCustomerDetail());
     	StatusResponse statusResponse = convertToStatusResponse(Status.SUCESS);
     	response.setStatusResponse(statusResponse);
         return response;
@@ -77,6 +90,15 @@ public class CustomerDetailEndpoint {
         customerDetail.setEmail(customer.getEmail());
         customerDetail.setPhone(customer.getPhone());
         return customerDetail;
+	}
+	
+	private Customer convertCustomer(CustomerDetail customerDetail) {
+		Customer customer = new Customer();
+		customer.setId(customerDetail.getId());
+		customer.setName(customerDetail.getName());
+		customer.setEmail(customerDetail.getEmail());
+		customer.setPhone(customerDetail.getPhone());
+        return customer;
 	}
 	
 	private StatusResponse convertToStatusResponse(Status status) {
