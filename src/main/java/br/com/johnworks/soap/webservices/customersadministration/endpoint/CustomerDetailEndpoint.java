@@ -1,7 +1,7 @@
 package br.com.johnworks.soap.webservices.customersadministration.endpoint;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -37,39 +37,38 @@ public class CustomerDetailEndpoint {
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetCustomerDetailRequest")
     @ResponsePayload
     public GetCustomerDetailResponse processGetCustomerDetailResponse(@RequestPayload GetCustomerDetailRequest request) throws Exception {
-    	Customer customer = new Customer();
-    	if(customer == null) {
-    		throw new CustomerNotFoundException("Invalid Customer id " + customer.getId());
+    	Optional<Customer> customer = customerDetailService.findById(request.getId());
+    	if(!customer.isPresent()) {
+    		throw new CustomerNotFoundException("Invalid Customer id " + request.getId());
     	}
-        return convertToGetCustomerDetailResponse(customer);
+        return convertToGetCustomerDetailResponse(customer.get());
     }
 	
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetAllCustomerDetailRequest")
     @ResponsePayload
     public GetAllCustomerDetailResponse processGetAllCustomerDetailRequest(@RequestPayload GetAllCustomerDetailRequest request) throws Exception {
-    	List<Customer> customer = new ArrayList<Customer>();
+    	List<Customer> customer = customerDetailService.findAll();
         return convertToGetAllCustomerDetailResponse(customer);
     }
     
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "DeleteCustomerRequest")
     @ResponsePayload
     public DeleteCustomerResponse processDeleteCustomerRequest(@RequestPayload DeleteCustomerRequest request) throws Exception {
-    	DeleteCustomerResponse response = new DeleteCustomerResponse();
-    	StatusResponse statusResponse = convertToStatusResponse(Status.SUCESS);
+		DeleteCustomerResponse response = new DeleteCustomerResponse();
+    	Status status = customerDetailService.delete(request.getId());
+    	StatusResponse statusResponse = convertToStatusResponse(status);
     	response.setStatusResponse(statusResponse);
         return response;
     }
 	
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "InsertCustomerRequest")
     @ResponsePayload
-    public InsertCustomerResponse processInsertCustomerRequest(@RequestPayload InsertCustomerRequest request) throws Exception {
+    public InsertCustomerResponse processInsertCustomerRequest(@RequestPayload InsertCustomerRequest request) {
 		InsertCustomerResponse response = new InsertCustomerResponse();
-		convertCustomer(request.getCustomerDetail());
-    	StatusResponse statusResponse = convertToStatusResponse(Status.SUCESS);
-    	response.setStatusResponse(statusResponse);
+    	Status status = customerDetailService.insert(convertCustomer(request.getCustomerDetail()));
+    	response.setStatusResponse(convertToStatusResponse(status));
         return response;
     }
-	
 	
 	private GetCustomerDetailResponse convertToGetCustomerDetailResponse(Customer customer) {
 		GetCustomerDetailResponse response = new GetCustomerDetailResponse();
